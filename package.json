@@ -1,0 +1,14 @@
+{
+  "name": "data-analyze",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "@babel/core": "7.20.12",
+    "parcel": "^2.0.0"
+  },
+  "keywords": []
+}
