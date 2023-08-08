@@ -1,34 +1,25 @@
-// начало 20:30
+// накладываем обработчик событий, чтоб содержимое скобок, подгружалось в первую очередь, без ожидания полной загрузки страницы
+document.addEventListener("DOMContentLoaded", function () {
+  const btnAanalysis = document.querySelector("#analyzeButton");
+  const btnClear = document.querySelector("#clearButton");
 
-/* document.addEventListener("DOMContentLoaded", function () {
-	const btnAanalysis = document.querySelector("#analyzeButton");
-	const btnClear = document.querySelector("#clearButton");
+  // накладываем обработчик событий - click (при нажатии на кнопку сработает содержимое скобок)
+  btnAanalysis.addEventListener("click", function (event) {
+    event.preventDefault(); 
+    getTextAnalysis();
+  });
 
-	btnAanalysis.addEventListener("click", function (event) {
-		event.preventDefault();
-		getTextAnalysis();
-	});
-	
-}); */
-
-const userText = document.querySelector("#analyze-title");
-const setUserText = document.querySelector("#userText");
-
-const btnAanalysis = document.querySelector("#analyzeButton");
-const btnClear = document.querySelector("#clearButton");
-
-btnAanalysis.addEventListener("click", function (event) {
-  event.preventDefault();
-  getTextAnalysis(userText);
+  btnClear.addEventListener("click", function (event) {
+    event.preventDefault();
+    clearText();
+    clearTable();
+  });
 });
 
-/* btnClear.addEventListener("click", function (event) {
-	event.preventDefault();
-	clearText();
-    clearTable();
-}); */
+function getTextAnalysis() {
+  const userText = document.querySelector("#analyze-title");
+  const setUserText = document.querySelector("#userText");
 
-function getTextAnalysis(string) {
   const firstCharacter = document.querySelector("#answer5");
   const countWords = document.querySelector("#answer1");
   const numOfChar = document.querySelector("#answer2");
@@ -38,24 +29,38 @@ function getTextAnalysis(string) {
   const countUniqueWord = document.querySelector("#answer7");
   const alphabeticalOrder = document.querySelector("#answer8");
 
-  setUserText.textContent = string.value;
-  firstCharacter.textContent = getFirstCharacter(string.value);
-  countWords.textContent = getCountWords(string.value);
-  numOfChar.textContent = getNumOfChar(string.value);
-  longestWord.textContent = getMaxLengthWord(string.value);
-  reverseWord.textContent = getReverseWord(string.value);
-  countSentences.textContent = getCountSentences(string.value);
-  countUniqueWord.textContent = getCountUniqueWord(string.value);
-  alphabeticalOrder.textContent = getAlphabeticalOrder(string.value);
+  setUserText.textContent = userText.value;
+  firstCharacter.textContent = getFirstCharacter(userText.value);
+  countWords.textContent = getCountWords(userText.value);
+  numOfChar.textContent = getNumOfChar(userText.value);
+  longestWord.textContent = getMaxLengthWord(userText.value);
+  reverseWord.textContent = getReverseWord(userText.value);
+  countSentences.textContent = getCountSentences(userText.value);
+  countUniqueWord.textContent = getCountUniqueWord(userText.value);
+  alphabeticalOrder.textContent = getAlphabeticalOrder(userText.value);
 }
 
-//готово
+function clearText() {
+  document.getElementById("analyze-title").value = "";
+  document.getElementById("userText").textContent = "";
+}
+
+function clearTable() {
+  document.getElementById("answer1").textContent = "";
+  document.getElementById("answer2").textContent = "";
+  document.getElementById("answer3").textContent = "";
+  document.getElementById("answer4").textContent = "";
+  document.getElementById("answer5").textContent = "";
+  document.getElementById("answer6").textContent = "";
+  document.getElementById("answer7").textContent = "";
+  document.getElementById("answer8").textContent = "";
+}
+
 function getFirstCharacter(string) {
   // убираем пробелы и возвращаем первый символ
   return string.trim().charAt(0);
 }
 
-//готово
 function getCountWords(string) {
   // строка в массив + заменяем некоторые символы
   const masWords = string.replace(/[\.,?!;:]/gi, "").split(" ");
@@ -70,12 +75,10 @@ function getCountWords(string) {
   return count;
 }
 
-//готово
 function getNumOfChar(string) {
   return string.length;
 }
 
-//готово
 function getMaxLengthWord(string) {
   // строку в массив + игорируем некоторые знаки препинания, чтоб ключ записывался корректно
   const masWords = string.replace(/[\.,?!;:]/gi, "").split(" ");
@@ -96,13 +99,11 @@ function getMaxLengthWord(string) {
   return key; // возвращаем найденный ключ
 }
 
-//готово
 function getReverseWord(string) {
   // строку в массив + обращаем порядок следования элементов + объединяем обратно в строку
   return string.split("").reverse().join("");
 }
 
-//готово
 function getCountSentences(text) {
   const sentences = text
     .trim()
@@ -112,11 +113,11 @@ function getCountSentences(text) {
   return sentences.length;
 }
 
-//готово
 function getCountUniqueWord(string) {
   // используем коллекцию значений Set, которая хранит только уникальные значения
   const masWords = new Set(
     string
+      .toLowerCase() // переводим все слова в нижний регистр (например, чтоб слова "яблоко" и "Яблоко", не были засчитаны, как разные слова)
       .replace(/[\.,?!;:]/gi, "") // заменяем некоторые символы, для корректной записи (это нужно для того, что например слово "яблоко" и "яблоко," не считывались, как разные значения)
       .split(" ")
   );
@@ -129,7 +130,6 @@ function getCountUniqueWord(string) {
   return count;
 }
 
-//готово
 function getAlphabeticalOrder(string) {
   let alphabeticalOrder = string
     .replace(/[\.,?!;:]/gi, "") // заменяем знаки препинания
