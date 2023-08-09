@@ -72,7 +72,6 @@ document.body.innerHTML = `
 
 // Функция для добавления слушателей событий
 function addEventListeners() {
-  // проверить querySelector
   const btnAanalysis = document.getElementById("analyzeButton");
   const btnClear = document.getElementById("clearButton");
 
@@ -115,12 +114,8 @@ describe("Анализ текста", () => {
 
     // Проверяем результаты анализа
     expect(firstCharacter.textContent).toBe("T");
-
-    //проверить
     expect(countWords.textContent).toBe("8");
-    //проверить
     expect(numOfChar.textContent).toBe("47");
-
     expect(longestWord.textContent).toBe("sentence");
     expect(reverseWord.textContent).toBe(
       "!ecnetnes tset rehtonA .ecnetnes tset a si sihT"
@@ -209,7 +204,7 @@ test("Очистка текстового поля", () => {
   const userText = document.getElementById("analyze-title");
 
   // Заполним поле текстом, чтобы убедиться, что оно будет очищено
-  analyzeTitle.value = "This is a test sentence. Another test sentence!";
+  userText.value = "This is a test sentence. Another test sentence!";
 
   // Вызываем функцию очистки текстового поля
   clearText();
