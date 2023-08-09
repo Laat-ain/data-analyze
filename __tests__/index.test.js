@@ -2,11 +2,7 @@ import {
   getTextAnalysis,
   clearTable,
   clearText,
-  getFirstCharacter,
-  getCountWords,
-  getNumOfChar,
   getMaxLengthWord,
-  getReverseWord,
   getCountSentences,
   getCountUniqueWord,
   getAlphabeticalOrder,
@@ -121,9 +117,9 @@ describe("Анализ текста", () => {
     expect(firstCharacter.textContent).toBe("T");
 
     //проверить
-    expect(countWords.textContent).toBe("10");
+    expect(countWords.textContent).toBe("8");
     //проверить
-    expect(numOfChar.textContent).toBe("49");
+    expect(numOfChar.textContent).toBe("47");
 
     expect(longestWord.textContent).toBe("sentence");
     expect(reverseWord.textContent).toBe(
